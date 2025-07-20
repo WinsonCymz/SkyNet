@@ -1,0 +1,54 @@
+.price-summary {
+  flex: 1;
+  min-width: 200px;
+}
+
+.price-summary-card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.price-detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.price-summary-total {
+  margin-top: 15px;
+  border-top: 1px solid #ddd;
+  padding-top: 10px;
+}
+
+.price-total {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.payment-methods {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.payment-methods img {
+  width: 50px;
+  height: auto;
+}
+
+.trusted-choice {
+  margin-top: 15px;
+  background-color: #e3f2fd;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.trusted-choice h4 {
+  margin-bottom: 10px;
+}
+
+.trusted-choice ul {
+  padding-left: 20px;
+}

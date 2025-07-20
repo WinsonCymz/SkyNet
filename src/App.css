@@ -1,0 +1,19 @@
+.App {
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.App-content {
+  backdrop-filter: blur(3px);
+  padding-top: 2rem;
+}

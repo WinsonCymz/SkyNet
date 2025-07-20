@@ -1,0 +1,220 @@
+.remove-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #c82333;
+}
+
+.add-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: flex-start;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #218838;
+}
+.contact-info-section,
+.voucher-section,
+.confirm-section {
+  flex: 1;
+  min-width: 300px;
+  margin-top: 0;
+}
+
+.confirm-note {
+  background-color: #f3f3f3;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.confirm-note a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.next-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 30px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  margin-left: auto;
+  cursor: pointer;
+}
+
+.prev-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 30px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-row button {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-weight: bold;
+  cursor: pointer;
+}
+.passenger-info-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 40px;
+  font-family: sans-serif;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 30px;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+
+.passenger-form-section {
+  flex: 1.5;
+  min-width: 320px;
+}
+
+.confirm-section {
+  margin-top: 20px;
+}
+
+.notice-box {
+  background-color: #e3f2fd;
+  padding: 15px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.passenger-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  min-width: 140px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.progress-tracker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.step .circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.step.completed .circle {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.step.active .circle {
+  background-color: #333;
+  color: #ffc107;
+  border: none;
+}
+
+.remove-passenger-button {
+  background-color: #dc3545;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.remove-passenger-button:hover {
+  background-color: #c82333;
+}
+
+.add-passenger-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.add-passenger-button:hover {
+  background-color: #218838;
+}
+
+.passenger-details {
+  display: flex;
+  gap: 20px;
+  margin: 20px;
+  justify-content: space-between;
+}
