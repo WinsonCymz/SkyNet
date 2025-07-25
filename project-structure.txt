@@ -1,4 +1,9 @@
 .
+├── backend
+│   ├── db.ts
+│   ├── server.ts
+│   └── tsconfig.json
+├── Dockerfile
 ├── package-lock.json
 ├── package.json
 ├── project-structure.txt
@@ -12,10 +17,13 @@
 ├── README.md
 └── src
     ├── App.css
-    ├── App.test.js
     ├── App.tsx
     ├── assets
-    │   └── background.jpg
+    │   ├── background.jpg
+    │   ├── creditcard.png
+    │   ├── mastercard.png
+    │   ├── osake.jpg
+    │   └── visa.png
     ├── components
     │   ├── DateRangePicker.tsx
     │   ├── Header.css
@@ -23,12 +31,26 @@
     │   ├── SearchForm.css
     │   └── SearchForm.tsx
     ├── data
+    │   ├── flights.json
     │   └── location.ts
+    ├── images.d.ts
     ├── index.css
     ├── index.js
     ├── pages
-    ├── reportWebVitals.js
-    ├── services
-    └── setupTests.js
+    │   ├── FlightDetails.css
+    │   ├── FlightDetails.tsx
+    │   ├── PassengerInfo.css
+    │   ├── PassengerInfo.tsx
+    │   ├── Payments.css
+    │   ├── Payments.tsx
+    │   ├── PriceDetails.css
+    │   ├── PriceDetails.tsx
+    │   ├── SeachResults.css
+    │   ├── SeachResults.tsx
+    │   ├── TripDetails.css
+    │   └── TripDetails.tsx
+    └── services
+        ├── api.ts
+        └── flightService.ts
 
-8 directories, 24 files
+9 directories, 45 files
