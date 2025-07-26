@@ -64,7 +64,9 @@ const SearchResults: React.FC = () => {
 
       const fetchFlights = async () => {
         try {
-          const response = await fetch("http://localhost:4000/api/flights");
+          const baseUrl =
+            process.env.REACT_APP_API_URL || "http://localhost:4000";
+          const response = await fetch(`${baseUrl}/api/flights`);
           const data = await response.json();
           // Transform backend data to frontend shape
           const transformed: Flight[] = (data || []).map((item: any) => ({

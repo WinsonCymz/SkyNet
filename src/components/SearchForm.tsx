@@ -30,9 +30,8 @@ const SearchForm: React.FC = () => {
   );
 
   useEffect(() => {
-    const baseUrl =
-      process.env.REACT_APP_API_URL || "http://localhost:4000/api/locations";
-    fetch(`${baseUrl}`)
+    const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:4000";
+    fetch(`${baseUrl}/api/locations`)
       .then((res) => res.json())
       .then((data) => setLocationOptions(data))
       .catch((err) => console.error("Failed to fetch locations", err));
