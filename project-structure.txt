@@ -1,8 +1,11 @@
 .
 ├── backend
 │   ├── db.ts
+│   ├── importFlights.ts
+│   ├── importLocations.ts
 │   ├── server.ts
 │   └── tsconfig.json
+├── build.zip
 ├── Dockerfile
 ├── package-lock.json
 ├── package.json
@@ -31,11 +34,9 @@
     │   ├── SearchForm.css
     │   └── SearchForm.tsx
     ├── data
-    │   ├── flights.json
-    │   └── location.ts
     ├── images.d.ts
     ├── index.css
-    ├── index.js
+    ├── index.tsx
     ├── pages
     │   ├── FlightDetails.css
     │   ├── FlightDetails.tsx
@@ -53,4 +54,4 @@
         ├── api.ts
         └── flightService.ts
 
-9 directories, 45 files
+9 directories, 46 files

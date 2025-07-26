@@ -1,10 +1,13 @@
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const pool = mysql.createPool({
-  host: 'skynet-rds.c8dar0yf2xwy.us-east-1.rds.amazonaws.com',
-  user: 'admin',
-  password: 'password',
-  database: 'skynet',
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0

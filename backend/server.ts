@@ -26,6 +26,18 @@ app.get('/api/flights', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/api/locations', async (req: Request, res: Response) => {
+  try {
+    const [rows] = await pool.query(
+      'SELECT city, airport, iata, country FROM locations'
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching locations');
+  }
+});
+
 const PORT = process.env.PORT || 4000;
 
 

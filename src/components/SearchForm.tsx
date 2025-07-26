@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./SearchForm.css";
-import { locations } from "../data/location.ts";
 import DateRangePicker from "./DateRangePicker.tsx";
 
 const SearchForm: React.FC = () => {
@@ -25,6 +25,18 @@ const SearchForm: React.FC = () => {
   const [fromValue, setFromValue] = useState("");
   const [toValue, setToValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [locationOptions, setLocationOptions] = useState<{ city: string }[]>(
+    []
+  );
+
+  useEffect(() => {
+    const baseUrl =
+      process.env.REACT_APP_API_URL || "http://localhost:4000/api/locations";
+    fetch(`${baseUrl}`)
+      .then((res) => res.json())
+      .then((data) => setLocationOptions(data))
+      .catch((err) => console.error("Failed to fetch locations", err));
+  }, []);
 
   function formatDate(d: Date | null) {
     if (!d) return "";
@@ -104,13 +116,13 @@ const SearchForm: React.FC = () => {
             />
             {fromFocus && (
               <div className="input-popup">
-                {locations
+                {locationOptions
                   .filter((loc) =>
-                    loc.toLowerCase().includes(fromValue.toLowerCase())
+                    loc.city.toLowerCase().includes(fromValue.toLowerCase())
                   )
                   .map((loc) => (
-                    <p key={loc} onClick={() => setFromValue(loc)}>
-                      {loc}
+                    <p key={loc.city} onClick={() => setFromValue(loc.city)}>
+                      {loc.city}
                     </p>
                   ))}
               </div>
@@ -134,15 +146,15 @@ const SearchForm: React.FC = () => {
             />
             {toFocus && (
               <div className="input-popup">
-                {locations
+                {locationOptions
                   .filter(
                     (loc) =>
-                      loc.toLowerCase().includes(toValue.toLowerCase()) &&
-                      loc !== fromValue
+                      loc.city.toLowerCase().includes(toValue.toLowerCase()) &&
+                      loc.city !== fromValue
                   )
                   .map((loc) => (
-                    <p key={loc} onClick={() => setToValue(loc)}>
-                      {loc}
+                    <p key={loc.city} onClick={() => setToValue(loc.city)}>
+                      {loc.city}
                     </p>
                   ))}
               </div>

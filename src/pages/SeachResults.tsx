@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./SeachResults.css";
-import flightsData from "../data/flights.json";
 
 type Flight = {
   airline?: { name?: string };
@@ -24,21 +23,76 @@ const SearchResults: React.FC = () => {
     if (!state) {
       navigate("/");
     } else {
-      // Filter flightsData by both departure and arrival IATA matching 'from' and 'to'
+      const cityToIata: Record<string, string> = {
+        Singapore: "SIN",
+        "Kuala Lumpur": "KUL",
+        Tokyo: "HND",
+        Osaka: "KIX",
+        Bangkok: "BKK",
+        Narita: "NRT",
+        "Haneda (Tokyo)": "HND",
+        Seoul: "ICN",
+        Jakarta: "CGK",
+        Manila: "MNL",
+        "Hong Kong": "HKG",
+        Beijing: "PEK",
+        Shanghai: "PVG",
+        Taipei: "TPE",
+        Dubai: "DXB",
+        Doha: "DOH",
+        London: "LHR",
+        Paris: "CDG",
+        Frankfurt: "FRA",
+        Amsterdam: "AMS",
+        "New York": "JFK",
+        "Los Angeles": "LAX",
+        "San Francisco": "SFO",
+        Chicago: "ORD",
+        Toronto: "YYZ",
+        Sydney: "SYD",
+        Melbourne: "MEL",
+        Auckland: "AKL",
+        Perth: "PER",
+      };
       const extractIata = (location: string) => {
         const match = location.match(/\(([^)]+)\)/);
-        return match ? match[1] : location;
+        if (match) return match[1];
+        return cityToIata[location] || location;
       };
       const fromIata = extractIata(from || "").toUpperCase();
       const toIata = extractIata(to || "").toUpperCase();
 
-      const filteredFlights = flightsData.filter(
-        (flight) =>
-          flight.departure?.iata?.toUpperCase() === fromIata &&
-          flight.arrival?.iata?.toUpperCase() === toIata
-      );
+      const fetchFlights = async () => {
+        try {
+          const response = await fetch("http://localhost:4000/api/flights");
+          const data = await response.json();
+          // Transform backend data to frontend shape
+          const transformed: Flight[] = (data || []).map((item: any) => ({
+            airline: { name: item.airline_name },
+            departure: {
+              iata: item.departure_iata,
+              scheduled: item.departure_time,
+            },
+            arrival: {
+              iata: item.arrival_iata,
+              scheduled: item.arrival_time,
+            },
+            // price: item.price,
+          }));
 
-      setFlights(filteredFlights);
+          const filteredFlights = transformed.filter(
+            (flight) =>
+              flight.departure?.iata?.toUpperCase() === fromIata &&
+              flight.arrival?.iata?.toUpperCase() === toIata
+          );
+
+          setFlights(filteredFlights);
+        } catch (error) {
+          console.error("Failed to fetch flights:", error);
+        }
+      };
+
+      fetchFlights();
     }
   }, [state, navigate]);
 
@@ -56,9 +110,15 @@ const SearchResults: React.FC = () => {
     return (
       <div className="search-results-container">
         <h2>
-          {from} → {to} | {new Date(departDate).toLocaleDateString()} –{" "}
-          {returnDate ? new Date(returnDate).toLocaleDateString() : "One-way"} |{" "}
-          {adults} Adults, {children} Children, {cabinClass}
+          {from} → {to} |{" "}
+          {departDate && !isNaN(new Date(departDate).getTime())
+            ? new Date(departDate).toLocaleDateString()
+            : "Invalid Date"}{" "}
+          –{" "}
+          {returnDate && !isNaN(new Date(returnDate).getTime())
+            ? new Date(returnDate).toLocaleDateString()
+            : "One-way"}{" "}
+          | {adults} Adults, {children} Children, {cabinClass}
         </h2>
         <p>No flights found matching your search criteria.</p>
       </div>
@@ -68,9 +128,15 @@ const SearchResults: React.FC = () => {
   return (
     <div className="search-results-container">
       <h2>
-        {from} → {to} | {new Date(departDate).toLocaleDateString()} –{" "}
-        {returnDate ? new Date(returnDate).toLocaleDateString() : "One-way"} |{" "}
-        {adults} Adults, {children} Children, {cabinClass}
+        {from} → {to} |{" "}
+        {departDate && !isNaN(new Date(departDate).getTime())
+          ? new Date(departDate).toLocaleDateString()
+          : "Invalid Date"}{" "}
+        –{" "}
+        {returnDate && !isNaN(new Date(returnDate).getTime())
+          ? new Date(returnDate).toLocaleDateString()
+          : "One-way"}{" "}
+        | {adults} Adults, {children} Children, {cabinClass}
       </h2>
 
       <div className="flight-list">
