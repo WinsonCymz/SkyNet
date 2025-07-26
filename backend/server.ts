@@ -1,5 +1,6 @@
 const dotenv = require('dotenv');
-dotenv.config();
+dotenv.config({ path: __dirname + '/.env' });
+console.log("Loaded env variables:", process.env.DB_HOST);
 
 const express = require('express');
 const cors = require('cors');
@@ -50,7 +51,7 @@ pool.getConnection()
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
   })
-  .catch((err: { message: any; }) => {
-    console.error('❌ Failed to connect to database:', err.message);
+  .catch((err: any) => {
+    console.error('❌ Failed to connect to database:', err);
     process.exit(1); // prevent app from running with broken DB
   });
