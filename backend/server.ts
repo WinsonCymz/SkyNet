@@ -7,7 +7,26 @@ const cors = require('cors');
 const { pool } = require('./db');
 
 const app = express();
-app.use(cors());
+// Configure CORS to allow only specific origins
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://skynet-frontend-bucket.s3-website-us-east-1.amazonaws.com"
+];
+app.use(cors({
+  origin: (
+    incomingOrigin: string | undefined,
+    callback: (err: Error | null, allow?: boolean) => void
+  ) => {
+    if (!incomingOrigin || allowedOrigins.includes(incomingOrigin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+app.options("*", cors());
 app.use(express.json());
 
 import { Request, Response } from 'express';
