@@ -68,19 +68,57 @@ const PaymentPage = () => {
 
         <form
           className="form-section"
-          onSubmit={(e) => {
+          onSubmit={async (e) => {
             e.preventDefault();
-            console.log("Payment details submitted:", {
-              cardName,
-              cardNumber,
-              expiry,
-              cvv,
-              address,
-            });
-            setSubmitted(true);
-            setTimeout(() => {
-              window.location.href = "/";
-            }, 2000);
+            // Build payload
+            const payload = {
+              flight_info: location.state.flight,
+              from_location: location.state.from,
+              to_location: location.state.to,
+              depart_date: location.state.departDate,
+              return_date: location.state.returnDate || null,
+              trip_type: location.state.tripType,
+              adults: location.state.adults,
+              children: location.state.children,
+              cabin_class: location.state.cabinClass,
+              contact_first_name: location.state.contactFirstName,
+              contact_last_name: location.state.contactLastName,
+              contact_phone: location.state.contactPhone,
+              contact_email: location.state.email,
+              passengers: location.state.passengers,
+              base_price: location.state.priceSummary.base,
+              extras_price:
+                location.state.priceSummary.selectedFare === "premium"
+                  ? location.state.priceSummary.extras
+                  : "0",
+              baggage_price: location.state.priceSummary.baggage,
+              total_price: location.state.priceSummary.total,
+              payment_method: "credit",
+              card_holder_name: cardName,
+              card_last4: cardNumber.slice(-4),
+              card_expiry: expiry,
+              billing_address: address,
+            };
+
+            try {
+              const apiUrl =
+                process.env.REACT_APP_API_URL || "http://localhost:4000";
+              const response = await fetch(`${apiUrl}/api/bookings`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload),
+              });
+              if (!response.ok) {
+                const text = await response.text();
+                throw new Error(text || "Server error");
+              }
+              const { bookingId } = await response.json();
+              console.log("Saved booking with ID:", bookingId);
+              setSubmitted(true);
+            } catch (err) {
+              console.error("Could not save booking:", err);
+              // Optionally show an error to the user here
+            }
           }}
         >
           <div className="row">

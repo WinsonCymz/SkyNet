@@ -39,6 +39,75 @@ app.get('/api/locations', async (req: Request, res: Response) => {
   }
 });
 
+app.post('/api/bookings', async (req: Request, res: Response) => {
+  try {
+    const {
+      flight_info,
+      from_location,
+      to_location,
+      depart_date,
+      return_date,
+      trip_type,
+      adults,
+      children,
+      cabin_class,
+      contact_first_name,
+      contact_last_name,
+      contact_phone,
+      contact_email,
+      passengers,
+      base_price,
+      extras_price,
+      baggage_price,
+      total_price,
+      payment_method,
+      card_holder_name,
+      card_last4,
+      card_expiry,
+      billing_address,
+    } = req.body;
+
+    const [result] = await pool.query(
+      `INSERT INTO booking_details
+        (flight_info, from_location, to_location, depart_date, return_date,
+         trip_type, adults, children, cabin_class,
+         contact_first_name, contact_last_name, contact_phone, contact_email,
+         passengers, base_price, extras_price, baggage_price, total_price,
+         payment_method, card_holder_name, card_last4, card_expiry, billing_address)
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+      [
+        JSON.stringify(flight_info),
+        from_location,
+        to_location,
+        new Date(depart_date),
+        return_date ? new Date(return_date) : null,
+        trip_type,
+        adults,
+        children,
+        cabin_class,
+        contact_first_name,
+        contact_last_name,
+        contact_phone,
+        contact_email,
+        JSON.stringify(passengers),
+        parseFloat(base_price),
+        parseFloat(extras_price),
+        parseFloat(baggage_price),
+        parseFloat(total_price),
+        payment_method,
+        card_holder_name,
+        card_last4,
+        card_expiry,
+        billing_address,
+      ]
+    );
+    res.status(201).json({ bookingId: (result as any).insertId });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Could not save booking' });
+  }
+});
+
 const PORT = process.env.PORT || 4000;
 
 
