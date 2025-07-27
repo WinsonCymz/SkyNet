@@ -17,6 +17,8 @@ const PaymentPage = () => {
   const location = useLocation();
   const priceSummary = location.state?.priceSummary || {};
   console.log("PaymentPage received state:", location.state);
+  const { flight } = location.state || {};
+  console.log("PaymentPage flight data:", flight);
 
   const basePrice = parseFloat(priceSummary.base || "0");
   const selectedFare = priceSummary.selectedFare || "low";

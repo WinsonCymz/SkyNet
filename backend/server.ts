@@ -92,7 +92,7 @@ app.post('/api/bookings', async (req: Request, res: Response) => {
          contact_first_name, contact_last_name, contact_phone, contact_email,
          passengers, base_price, extras_price, baggage_price, total_price,
          payment_method, card_holder_name, card_last4, card_expiry, billing_address)
-       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
+       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
       [
         JSON.stringify(flight_info),
         from_location,

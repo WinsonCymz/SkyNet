@@ -395,6 +395,7 @@ const PassengerInfo: React.FC = () => {
                 className="next-button"
                 onClick={() => {
                   const {
+                    flight,
                     from,
                     to,
                     departDate,
@@ -406,6 +407,7 @@ const PassengerInfo: React.FC = () => {
                   } = location.state || {};
                   navigate("/payment-details", {
                     state: {
+                      flight,
                       from,
                       to,
                       departDate,
