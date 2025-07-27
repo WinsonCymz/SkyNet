@@ -85,6 +85,24 @@ app.post('/api/bookings', async (req: Request, res: Response) => {
       billing_address,
     } = req.body;
 
+    // Parse dates (DD/MM/YYYY or ISO), falling back to flight_info values
+    const parseDMY = (str: string) => {
+      const [day, month, year] = str.split("/");
+      return new Date(parseInt(year, 10), parseInt(month, 10) - 1, parseInt(day, 10));
+    };
+    const rawDepart = depart_date ?? flight_info?.departure?.scheduled;
+    const departDateObj = rawDepart
+      ? rawDepart.includes("/")
+        ? parseDMY(rawDepart)
+        : new Date(rawDepart)
+      : null;
+    const rawReturn = return_date ?? flight_info?.arrival?.scheduled ?? null;
+    const returnDateObj = rawReturn
+      ? rawReturn.includes("/")
+        ? parseDMY(rawReturn)
+        : new Date(rawReturn)
+      : null;
+
     const [result] = await pool.query(
       `INSERT INTO booking_details
         (flight_info, from_location, to_location, depart_date, return_date,
@@ -97,8 +115,8 @@ app.post('/api/bookings', async (req: Request, res: Response) => {
         JSON.stringify(flight_info),
         from_location,
         to_location,
-        new Date(depart_date),
-        return_date ? new Date(return_date) : null,
+        departDateObj,
+        returnDateObj,
         trip_type,
         adults,
         children,
