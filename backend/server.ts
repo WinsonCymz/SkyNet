@@ -30,7 +30,7 @@ app.get('/api/flights', async (req: Request, res: Response) => {
 app.get('/api/locations', async (req: Request, res: Response) => {
   try {
     const [rows] = await pool.query(
-      'SELECT city, airport, iata, country FROM locations'
+      'SELECT city, airport, iata FROM locations'
     );
     res.json(rows);
   } catch (err) {
