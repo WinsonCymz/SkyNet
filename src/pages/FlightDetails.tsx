@@ -28,6 +28,7 @@ const FlightDetails: React.FC = () => {
     children,
     cabinClass,
     price,
+    tripType,
     title,
     firstName,
     middleName,
@@ -46,6 +47,19 @@ const FlightDetails: React.FC = () => {
     contactPhone,
     email,
   } = state || {};
+
+  console.log("FlightDetails received state:", {
+    flight,
+    from,
+    to,
+    departDate,
+    returnDate,
+    adults,
+    children,
+    cabinClass,
+    price,
+    tripType,
+  });
 
   // Calculate robust total price before return
   const basePrice = parseFloat(
@@ -234,6 +248,7 @@ const FlightDetails: React.FC = () => {
                     children: children || 0,
                     cabinClass: cabinClass || "Not specified",
                     price,
+                    tripType,
                     title,
                     firstName,
                     middleName,

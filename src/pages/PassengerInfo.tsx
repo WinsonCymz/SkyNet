@@ -42,6 +42,7 @@ const PassengerInfo: React.FC = () => {
 
   const location = useLocation();
   const priceSummary = location.state?.priceSummary || null;
+  console.log("PassengerInfo received state:", location.state);
   return (
     <div className="passenger-details">
       <TripDetails />
@@ -393,9 +394,26 @@ const PassengerInfo: React.FC = () => {
               <button
                 className="next-button"
                 onClick={() => {
+                  const {
+                    from,
+                    to,
+                    departDate,
+                    returnDate,
+                    adults,
+                    children,
+                    cabinClass,
+                    tripType,
+                  } = location.state || {};
                   navigate("/payment-details", {
                     state: {
-                      ...location.state,
+                      from,
+                      to,
+                      departDate,
+                      returnDate,
+                      adults,
+                      children,
+                      cabinClass,
+                      tripType,
                       passengers,
                       contactFirstName,
                       contactLastName,

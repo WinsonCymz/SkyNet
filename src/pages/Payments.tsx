@@ -8,9 +8,15 @@ import creditcard from "../assets/creditcard.png";
 const PaymentPage = () => {
   const [paymentMethod, setPaymentMethod] = useState("credit");
   const [submitted, setSubmitted] = useState(false);
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [expiry, setExpiry] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [address, setAddress] = useState("");
 
   const location = useLocation();
   const priceSummary = location.state?.priceSummary || {};
+  console.log("PaymentPage received state:", location.state);
 
   const basePrice = parseFloat(priceSummary.base || "0");
   const selectedFare = priceSummary.selectedFare || "low";
@@ -64,6 +70,13 @@ const PaymentPage = () => {
           className="form-section"
           onSubmit={(e) => {
             e.preventDefault();
+            console.log("Payment details submitted:", {
+              cardName,
+              cardNumber,
+              expiry,
+              cvv,
+              address,
+            });
             setSubmitted(true);
             setTimeout(() => {
               window.location.href = "/";
@@ -71,21 +84,35 @@ const PaymentPage = () => {
           }}
         >
           <div className="row">
-            <input placeholder="Enter name on card" />
-            <input placeholder="Enter card number" />
+            <input
+              placeholder="Enter name on card"
+              value={cardName}
+              onChange={(e) => setCardName(e.target.value)}
+            />
+            <input
+              placeholder="Enter card number"
+              value={cardNumber}
+              onChange={(e) => setCardNumber(e.target.value)}
+            />
           </div>
           <div className="row">
-            <input placeholder="MM/YY" />
-            <input placeholder="Enter CVV" />
+            <input
+              placeholder="MM/YY"
+              value={expiry}
+              onChange={(e) => setExpiry(e.target.value)}
+            />
+            <input
+              placeholder="Enter CVV"
+              value={cvv}
+              onChange={(e) => setCvv(e.target.value)}
+            />
           </div>
           <div className="row">
-            <input placeholder="Add address" />
-          </div>
-          <div className="row">
-            <input placeholder="Input code" />
-            <select>
-              <option>Select</option>
-            </select>
+            <input
+              placeholder="Add address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
           </div>
           <label className="terms-notice">
             By selecting the button below, I agree to the Property Rules, Terms

@@ -16,8 +16,26 @@ const SearchResults: React.FC = () => {
   const [flights, setFlights] = useState<Flight[]>([]);
 
   // Destructure state before useEffect so from/to are available
-  const { from, to, departDate, returnDate, adults, children, cabinClass } =
-    state || {};
+  const {
+    from,
+    to,
+    departDate,
+    returnDate,
+    adults,
+    children,
+    cabinClass,
+    tripType,
+  } = state || {};
+  console.log("SearchResults received state:", {
+    from,
+    to,
+    departDate,
+    returnDate,
+    adults,
+    children,
+    cabinClass,
+    tripType,
+  });
 
   useEffect(() => {
     if (!state) {
@@ -117,7 +135,9 @@ const SearchResults: React.FC = () => {
             ? new Date(departDate).toLocaleDateString()
             : "Invalid Date"}{" "}
           –{" "}
-          {returnDate && !isNaN(new Date(returnDate).getTime())
+          {tripType === "Return" &&
+          returnDate &&
+          !isNaN(new Date(returnDate).getTime())
             ? new Date(returnDate).toLocaleDateString()
             : "One-way"}{" "}
           | {adults} Adults, {children} Children, {cabinClass}
@@ -135,7 +155,9 @@ const SearchResults: React.FC = () => {
           ? new Date(departDate).toLocaleDateString()
           : "Invalid Date"}{" "}
         –{" "}
-        {returnDate && !isNaN(new Date(returnDate).getTime())
+        {tripType === "Return" &&
+        returnDate &&
+        !isNaN(new Date(returnDate).getTime())
           ? new Date(returnDate).toLocaleDateString()
           : "One-way"}{" "}
         | {adults} Adults, {children} Children, {cabinClass}
@@ -202,6 +224,7 @@ const SearchResults: React.FC = () => {
                           children,
                           cabinClass,
                           price: flight.price,
+                          tripType,
                         },
                       })
                     }

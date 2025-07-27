@@ -5,18 +5,24 @@ import "./TripDetails.css";
 const TripDetails: React.FC = () => {
   const location = useLocation();
   const {
+    from = "",
+    to = "",
     departDate = "",
     returnDate = "",
     adults = 1,
     children = 0,
     cabinClass = "Not specified",
+    tripType = returnDate ? "Return" : "One Way",
   } = location.state || {};
 
   return (
     <div className="trip-info-summary">
       <h3>Trip Overview</h3>
       <p>
-        <strong>Trip Type:</strong> {returnDate ? "Return" : "One Way"}
+        <strong>Route:</strong> {from} → {to}
+      </p>
+      <p>
+        <strong>Trip Type:</strong> {tripType}
       </p>
       <p>
         <strong>Depart:</strong> {new Date(departDate).toLocaleDateString()}

@@ -79,6 +79,7 @@ const SearchForm: React.FC = () => {
                 adults,
                 children,
                 cabinClass,
+                tripType: tripType,
               },
             });
           }
