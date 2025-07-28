@@ -57,6 +57,16 @@ app.get('/api/locations', async (req: Request, res: Response) => {
   }
 });
 
+app.get('/api/bookings', async (req: Request, res: Response) => {
+  try {
+    const [rows] = await pool.query('SELECT * FROM booking_details');
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching bookings');
+  }
+});
+
 app.post('/api/bookings', async (req: Request, res: Response) => {
   try {
     const {
