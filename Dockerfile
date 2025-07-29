@@ -1,29 +1,25 @@
-# ------------ Build stage ------------
-FROM node:20-alpine AS build
+# Use Node.js base image
+FROM node:20-alpine
+
+# Set working directory
 WORKDIR /app
 
-# Install deps (cache layer)
+# Copy root-level package files
 COPY package*.json ./
-RUN npm ci
 
-# Copy source
-COPY public ./public
-COPY src ./src
+RUN npm install --legacy-peer-deps
 
-# Build static files to /app/build
-RUN npm run build
+# Install ts-node and typescript globally
+RUN npm install -g ts-node typescript
 
-# ------------ Runtime stage ------------
-FROM nginx:1.27-alpine
+# Copy backend code into the container
+COPY backend/ ./backend
 
-# Remove default content (optional)
-RUN rm -rf /usr/share/nginx/html/*
+# Set working directory to backend
+WORKDIR /app/backend
 
-# Copy build output
-COPY --from=build /app/build /usr/share/nginx/html
+# Expose backend port
+EXPOSE 4000
 
-# (Optional) SPA routing (uncomment if you add a custom config):
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-EXPOSE 80
-# Default CMD from nginx image runs the server
+# Run the backend server
+CMD ["npx", "ts-node", "server.ts"]

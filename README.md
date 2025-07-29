@@ -1,5 +1,32 @@
 # Getting Started with Create React App
 
+## Project Title
+
+SkyNet: Cloud-Based Flight Booking System
+
+## Description
+
+This is the frontend of the SkyNet flight booking system. Built with React and hosted on Amazon S3, this application allows users to search for flights, select their desired options, input passenger details, and complete a booking.
+
+## AWS Deployment Summary
+
+- Frontend hosted on S3
+- Backend deployed on EC2
+- MySQL database in RDS (private subnet)
+- Application Load Balancer and Auto Scaling Group for high availability
+- VPC with public and private subnets configured
+
+## How to Run Locally
+
+1. Clone this repository
+2. Run `npm install`
+3. Run `npm start`
+4. Access the app at [http://localhost:3000](http://localhost:3000)
+
+## Demo Credentials
+
+This system was deployed and demonstrated in the ICT2509C Cloud Computing Project.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
